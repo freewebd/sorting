@@ -1,19 +1,26 @@
-<?php function build_sorter($key, $sorting_direction, $dependentKey = '')
+<?php function build_sorter($key, $sorting_direction)
 {
-    return function ($a, $b) use ($key, $sorting_direction, $dependentKey) {
+    return function ($a, $b) use ($key, $sorting_direction) {
         if ($sorting_direction === 'abc') {
-            if (!empty($dependentKey)) {
-                return [$a[$key], $a[$dependentKey]] <=> [$b[$key], $b[$dependentKey]];
-            }
             return strnatcmp($a[$key], $b[$key]);
         }
         if ($sorting_direction === 'cba') {
-            if (!empty($dependentKey)) {
-                return [$b[$key], $a[$dependentKey]] <=> [$a[$key], $b[$dependentKey]];
-            }
             return strnatcmp($b[$key], $a[$key]);
         }
     };
+}
+
+function sequentialSorting($array, $primaryKey, $primarySort, $dependentKey = '', $dependentSort = '')
+{
+
+    $uniqueValue = array_count_values(array_column($array, $primaryKey));
+    $result = [];
+    foreach ($uniqueValue as $k => $v) {
+        $output = array_splice($array, 0, $v);
+        usort($output, build_sorter($dependentKey, $dependentSort));
+        $result = array_merge($result, $output);
+    }
+    return $result;
 }
 
 function sorting_direction($columnHeader, $key, $sorting)
