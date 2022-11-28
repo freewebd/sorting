@@ -12,10 +12,9 @@
 
 function sequentialSorting($array, $primaryKey, $primarySort, $dependentKey = '', $dependentSort = '')
 {
-
-    $uniqueValue = array_count_values(array_column($array, $primaryKey));
     $result = [];
-    foreach ($uniqueValue as $k => $v) {
+    $uniqueValue = array_count_values(array_column($array, $primaryKey));
+    foreach ($uniqueValue as $v) {
         $output = array_splice($array, 0, $v);
         usort($output, build_sorter($dependentKey, $dependentSort));
         $result = array_merge($result, $output);
@@ -23,13 +22,27 @@ function sequentialSorting($array, $primaryKey, $primarySort, $dependentKey = ''
     return $result;
 }
 
-function sorting_direction($columnHeader, $key, $sorting)
+function sorting_direction($columnHeader)
 {
-    if ($columnHeader === $key && $sorting === 'abc') {
-        return 'cba';
+    if ($_GET['key2'] === $columnHeader && $_GET['sort2'] === 'cba') {
+        return "?key1=".$_GET['key1']."&sort1=".$_GET['sort1'];
     }
-    if ($columnHeader === $key && $sorting === 'cba') {
-        return '';
+    if ($_GET['key2'] === $columnHeader && $_GET['sort2'] === 'abc') {
+        return "?key1=".$_GET['key1']."&sort1=".$_GET['sort1']."&key2=".$_GET['key2']."&sort2=cba";
     }
-    return 'abc';
+    if ($_GET['key1'] !== $columnHeader && $_GET['sort1'] === 'abc') {
+        return "?key1=".$_GET['key1']."&sort1=".$_GET['sort1']."&key2=".$columnHeader."&sort2=abc";
+    }
+
+
+    if ($_GET['key1'] === $columnHeader && $_GET['sort1'] === 'cba') {
+        return "?key1=&sort1=";
+    }
+    if ($_GET['key1'] === $columnHeader && $_GET['sort1'] === 'abc') {
+        return "?key1=$columnHeader&sort1=cba";
+    }
+    if (empty($_GET) || empty($_GET['key1'])) {
+        return "?key1=$columnHeader&sort1=abc";
+    }
+    return "";
 }
