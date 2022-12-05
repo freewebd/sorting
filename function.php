@@ -1,4 +1,5 @@
-<?php function build_sorter($key, $sorting_direction)
+<?php 
+function build_sorter($key, $sorting_direction)
 {
     return function ($a, $b) use ($key, $sorting_direction) {
         if ($sorting_direction === 'abc') {

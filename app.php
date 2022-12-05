@@ -1,5 +1,6 @@
 <?php
-
+require('function.php');
+require('data.php');
 
 if (!empty($_GET)) {
    usort($array, build_sorter($_GET['key1'], $_GET['sort1']));
