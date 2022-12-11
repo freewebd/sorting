@@ -17,11 +17,11 @@ $columnHeaders = array_keys($array[1]);
             <input type="text" name="search">
             <input type="submit" name="send" value="Отправить">
         </form>
-        <div id="result"></div>
+        <div id="resultText"></div>
     </div>
 
 
-    <table border="2">
+    <table id="tableData" border="2">
         <tr>
             <?php foreach ($columnHeaders as $columnHeader) : ?>
                 <th>
@@ -32,9 +32,9 @@ $columnHeaders = array_keys($array[1]);
             <?php endforeach ?>
         </tr>
         <?php foreach ($array as $item) : ?>
-            <tr>
-                <?php foreach ($item as $cell) : ?>
-                    <td><?= $cell ?></td>
+            <tr class="itemData">
+                <?php foreach ($item as $name=>$cell) : ?>
+                    <td class="<?= $name ?>"><?= $cell ?></td>
                 <?php endforeach ?>
             </tr>
         <?php endforeach ?>
