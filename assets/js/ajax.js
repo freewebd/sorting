@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             body: formData
         });
         if (!response.ok) {
-            throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response.status}`);
+            throw new Error(`Помилка по адресі ${url}, статус помилки ${response.status}`);
         }
         return await response.json();
     };

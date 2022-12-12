@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-
-<head>
-    <script type="text/javascript" src="/assets/js/ajax.js"></script>
-</head>
 <?php
 require('app.php');
 
 $columnHeaders = array_keys($array[1]);
 ?>
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/assets/js/ajax.js"></script>
+</head>
 
 <body>
 
@@ -19,7 +19,6 @@ $columnHeaders = array_keys($array[1]);
         </form>
         <div id="resultText"></div>
     </div>
-
 
     <table id="tableData" border="2">
         <tr>
@@ -33,7 +32,7 @@ $columnHeaders = array_keys($array[1]);
         </tr>
         <?php foreach ($array as $item) : ?>
             <tr class="itemData">
-                <?php foreach ($item as $name=>$cell) : ?>
+                <?php foreach ($item as $name => $cell) : ?>
                     <td class="<?= $name ?>"><?= $cell ?></td>
                 <?php endforeach ?>
             </tr>
